@@ -1,31 +1,19 @@
-import WelcomeBanner from "./components/dashboard/WelcomeBanner";
-import StatsGrid from "./components/dashboard/StatsGrid";
+import SkillProgressCard from "./components/dashboard/SkillProgressCard";
+import CareerReadinessCard from "./components/dashboard/CareerReadinessCard";
+import PortfolioCard from "./components/dashboard/PortfolioCard";
+import AIInsightsCard from "./components/dashboard/AIInsightsCard";
 
-/**
- * App Component
- * The main entry point for the LMS Dashboard application.
- * Assembles the WelcomeBanner and StatsGrid for the initial task.
- */
-export default function App() {
+function App() {
   return (
-    <div className="min-h-screen bg-[#0b0f1a] text-white font-sans p-6 md:p-10">
-      <div className="mx-auto max-w-7xl space-y-10">
-        {/* DASHBOARD HEADER */}
-        <WelcomeBanner />
-
-        {/* STATISTICS SECTION */}
-        <section className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold tracking-tight md:text-2xl">
-              Performance Overview
-            </h2>
-            <button className="text-sm font-medium text-blue-400 hover:underline">
-              View All Insights →
-            </button>
-          </div>
-          <StatsGrid />
-        </section>
+    <div className="min-h-screen flex justify-center items-center p-10 bg-[#020617]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+        <SkillProgressCard />
+        <CareerReadinessCard />
+        <AIInsightsCard />
+        <PortfolioCard />
       </div>
     </div>
   );
 }
+
+export default App;
