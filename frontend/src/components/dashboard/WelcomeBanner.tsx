@@ -40,9 +40,18 @@ export default function WelcomeBanner() {
         </div>
 
         {/* Right Content: Profile & Status Indicators */}
-        <div className="flex items-center gap-6">
+        <div className="flex flex-col items-center gap-6">
+          {/* Profile Avatar */}
+          <div className="relative">
+            <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md"></div>
+            <Avatar className="h-24 w-24 border-2 border-blue-500/50 shadow-2xl transition-transform hover:scale-105">
+              <AvatarImage src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop" alt="User Profile" />
+              <AvatarFallback>AJ</AvatarFallback>
+            </Avatar>
+          </div>
+
           {/* Status Pills */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-1.5 text-sm font-medium text-green-400">
               <span className="h-2 w-2 rounded-full bg-green-500"></span>
               On track ✔
@@ -51,15 +60,6 @@ export default function WelcomeBanner() {
               <span>🔥</span>
               14-day streak
             </div>
-          </div>
-
-          {/* Profile Avatar */}
-          <div className="relative">
-            <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md"></div>
-            <Avatar className="h-24 w-24 border-2 border-blue-500/50 shadow-2xl transition-transform hover:scale-105">
-              <AvatarImage src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop" alt="User Profile" />
-              <AvatarFallback>AJ</AvatarFallback>
-            </Avatar>
           </div>
         </div>
       </div>
