@@ -1,46 +1,48 @@
+import DashboardLayout from "./components/layout/DashboardLayout";
 import WelcomeBanner from "./components/dashboard/WelcomeBanner";
 import StatsGrid from "./components/dashboard/StatsGrid";
 import SkillProgressCard from "./components/dashboard/SkillProgressCard";
 import CareerReadinessCard from "./components/dashboard/CareerReadinessCard";
 import PortfolioCard from "./components/dashboard/PortfolioCard";
 import AIInsightsCard from "./components/dashboard/AIInsightsCard";
+import DailyStreak from "./components/dashboard/DailyStreak";
+import ResumeCard from "./components/dashboard/ResumeCard";
+import DeadlineList from "./components/dashboard/DeadlineList";
+import LiveClassList from "./components/dashboard/LiveClassList";
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#020617] text-white font-sans p-6 md:p-10 dark">
-      <div className="mx-auto max-w-7xl space-y-12">
-        {/* DASHBOARD HEADER */}
-        <WelcomeBanner />
+    <DashboardLayout>
+      <div className="mx-auto max-w-7xl flex flex-col xl:flex-row gap-8">
+        
+        {/* LEFT COLUMN: Main Content */}
+        <div className="flex-1 space-y-8 min-w-0">
+          <WelcomeBanner />
 
-        {/* QUICK STATS SECTION */}
-        <section className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold tracking-tight md:text-2xl">
-              Performance Overview
-            </h2>
-            <button className="text-sm font-medium text-blue-400 hover:underline">
-              View Insights →
-            </button>
-          </div>
-          <StatsGrid />
-        </section>
+          <section className="space-y-6">
+            <StatsGrid />
+          </section>
 
-        {/* DETAILED INSIGHTS GRID */}
-        <section className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold tracking-tight md:text-2xl">
-              Learning & Career Readiness
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <SkillProgressCard />
-            <CareerReadinessCard />
-            <AIInsightsCard />
-            <PortfolioCard />
-          </div>
-        </section>
+          <section className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <SkillProgressCard />
+              <CareerReadinessCard />
+              <AIInsightsCard />
+              <PortfolioCard />
+            </div>
+          </section>
+        </div>
+
+        {/* RIGHT COLUMN: Right Panel */}
+        <div className="w-full xl:w-[340px] space-y-8 shrink-0">
+          <DailyStreak />
+          <ResumeCard />
+          <DeadlineList />
+          <LiveClassList />
+        </div>
+        
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
 

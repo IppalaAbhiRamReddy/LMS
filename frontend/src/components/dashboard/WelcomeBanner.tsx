@@ -1,4 +1,3 @@
-import { Progress } from "../ui/Progress";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
 import { motion } from "framer-motion";
 
@@ -35,7 +34,9 @@ export default function WelcomeBanner() {
               <span>Overall Progress</span>
               <span className="text-blue-400">68%</span>
             </div>
-            <Progress value={68} className="h-2 bg-gray-700" />
+            <div className="h-2 bg-gray-700/50 rounded-full overflow-hidden">
+              <div className="h-full bg-blue-500 rounded-full" style={{ width: "68%" }}></div>
+            </div>
           </div>
         </div>
 
@@ -50,15 +51,13 @@ export default function WelcomeBanner() {
             </Avatar>
           </div>
 
-          {/* Status Pills */}
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-1.5 text-sm font-medium text-green-400">
-              <span className="h-2 w-2 rounded-full bg-green-500"></span>
-              On track ✔
+          {/* Status Indicators */}
+          <div className="flex flex-row items-center justify-center gap-4 text-sm font-medium">
+            <div className="flex items-center gap-1.5 text-green-400">
+              On track <span className="text-green-500">✔</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-sm font-medium text-orange-400">
-              <span>🔥</span>
-              14-day streak
+            <div className="flex items-center gap-1.5 text-gray-300">
+              14-day streak <span>🔥</span>
             </div>
           </div>
         </div>

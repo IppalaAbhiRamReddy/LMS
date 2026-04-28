@@ -1,37 +1,32 @@
-import { BarChart3 } from "lucide-react";
-
 export default function SkillProgressCard() {
     return (
-        <div className="bg-card border border-border rounded-2xl p-6 w-full flex flex-col
-                    shadow-md hover:-translate-y-2 hover:shadow-blue-500/20 transition">
+        <div className="bg-[#11131e] border-[#1e2235] border rounded-2xl p-5 w-full flex flex-col shadow-sm transition h-full font-sans">
 
-            <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-xl bg-[#1e293b]">
-                    <BarChart3 className="text-blue-400 w-5 h-5" />
+            <div className="flex items-center gap-3.5 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-b from-[#1c2438] to-[#121625] border border-[#2d3a5e] flex items-center justify-center shadow-inner text-2xl">
+                    👨‍💻
                 </div>
-                <h3 className="text-2xl font-semibold">Skill Progress</h3>
+                <h3 className="text-[20px] font-bold text-white">Skill Progress</h3>
             </div>
 
-            <div className="flex-1 space-y-4 text-base">
+            <div className="flex-1 space-y-4">
                 {[
-                    { name: "React", value: 80, color: "bg-blue-500" },
-                    { name: "Python", value: 60, color: "bg-green-500" },
-                    { name: "AWS", value: 30, color: "bg-yellow-500" }
+                    { name: "React", value: 80, color: "bg-[#3366ff]" },
+                    { name: "Python", value: 60, color: "bg-[#4ade80]" },
+                    { name: "AWS", value: 30, color: "bg-[#eab308]" }
                 ].map((item) => (
-                    <div key={item.name}>
-                        <div className="flex justify-between mb-1">
-                            <span>{item.name}</span>
-                            <span className="font-medium">{item.value}%</span>
-                        </div>
-                        <div className="h-2 bg-muted rounded-full">
+                    <div key={item.name} className="flex items-center gap-4">
+                        <span className="text-[14px] text-gray-200 w-14">{item.name}</span>
+                        <div className="flex-1 h-1.5 bg-[#232633] rounded-full overflow-hidden flex items-center">
                             <div className={`h-full ${item.color} rounded-full`} style={{ width: `${item.value}%` }}></div>
                         </div>
+                        <span className="text-[14px] font-bold text-gray-200">{item.value}%</span>
                     </div>
                 ))}
             </div>
 
-            <div className="flex justify-end mt-4">
-                <button className="px-3 py-1 text-sm rounded-md bg-red-400 text-white hover:bg-red-500">
+            <div className="flex justify-end mt-7">
+                <button className="px-3 py-1 text-[11px] font-bold rounded bg-[#8e3a43] text-[#f7b2b9] hover:bg-[#a6434e] transition-colors">
                     View →
                 </button>
             </div>
