@@ -1,24 +1,57 @@
+import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
 import { motion } from "framer-motion";
 
 /**
  * WelcomeBanner Component
- * Renders the top greeting section of the dashboard with user name, 
- * overall progress, and streak indicators.
+ * Renders the top greeting section of the dashboard with user name,
+ * overall progress, and functional daily streak tracking.
  */
 export default function WelcomeBanner() {
+  const [streak, setStreak] = useState(1);
+
+  useEffect(() => {
+    const today = new Date();
+    const todayString = today.toDateString();
+
+    const lastVisit = localStorage.getItem("lastVisitDate");
+    const savedStreak = Number(localStorage.getItem("streakCount")) || 1;
+
+    if (!lastVisit) {
+      localStorage.setItem("lastVisitDate", todayString);
+      localStorage.setItem("streakCount", "1");
+      setStreak(1);
+      return;
+    }
+
+    const lastVisitDate = new Date(lastVisit);
+    const diffTime = today.getTime() - lastVisitDate.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) {
+      setStreak(savedStreak);
+    } else if (diffDays === 1) {
+      const updatedStreak = savedStreak + 1;
+      localStorage.setItem("streakCount", updatedStreak.toString());
+      localStorage.setItem("lastVisitDate", todayString);
+      setStreak(updatedStreak);
+    } else {
+      localStorage.setItem("streakCount", "1");
+      localStorage.setItem("lastVisitDate", todayString);
+      setStreak(1);
+    }
+  }, []);
+
   return (
-    <motion.section 
+    <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#1e293b] to-[#0f172a] p-8 text-white shadow-xl"
     >
-      {/* Decorative Background Shape */}
       <div className="absolute -left-16 -top-16 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl"></div>
-      
+
       <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-        {/* Left Content: Welcome Message & Progress */}
         <div className="flex-1 space-y-6">
           <div>
             <h1 className="text-3xl font-bold md:text-4xl">
@@ -35,29 +68,33 @@ export default function WelcomeBanner() {
               <span className="text-blue-400">68%</span>
             </div>
             <div className="h-2 bg-gray-700/50 rounded-full overflow-hidden">
-              <div className="h-full bg-blue-500 rounded-full" style={{ width: "68%" }}></div>
+              <div
+                className="h-full bg-blue-500 rounded-full"
+                style={{ width: "68%" }}
+              ></div>
             </div>
           </div>
         </div>
 
-        {/* Right Content: Profile & Status Indicators */}
         <div className="flex flex-col items-center gap-6">
-          {/* Profile Avatar */}
           <div className="relative">
             <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md"></div>
             <Avatar className="h-24 w-24 border-2 border-blue-500/50 shadow-2xl transition-transform hover:scale-105">
-              <AvatarImage src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop" alt="User Profile" />
+              <AvatarImage
+                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop"
+                alt="User Profile"
+              />
               <AvatarFallback>AJ</AvatarFallback>
             </Avatar>
           </div>
 
-          {/* Status Indicators */}
           <div className="flex flex-row items-center justify-center gap-4 text-sm font-medium">
             <div className="flex items-center gap-1.5 text-green-400">
               On track <span className="text-green-500">✔</span>
             </div>
+
             <div className="flex items-center gap-1.5 text-gray-300">
-              14-day streak <span>🔥</span>
+              {streak}-day streak <span>🔥</span>
             </div>
           </div>
         </div>

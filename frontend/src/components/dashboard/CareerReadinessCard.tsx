@@ -1,7 +1,14 @@
+import { motion } from "framer-motion";
+
 export default function CareerReadinessCard() {
     return (
-        <div className="bg-[#11131e] border-[#1e2235] border rounded-2xl p-5 w-full flex flex-col shadow-sm transition h-full font-sans">
-
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            whileHover={{ y: -6, scale: 1.02 }}
+            className="bg-[#11131e] border-[#1e2235] border rounded-2xl p-5 w-full flex flex-col shadow-sm transition h-full font-sans"
+        >
             <div className="flex items-center gap-3.5 mb-6">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-b from-[#1c2438] to-[#121625] border border-[#2d3a5e] flex items-center justify-center shadow-inner text-2xl">
                     💼
@@ -30,6 +37,6 @@ export default function CareerReadinessCard() {
                     View →
                 </button>
             </div>
-        </div>
+        </motion.div>
     );
 }
