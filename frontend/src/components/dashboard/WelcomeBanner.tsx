@@ -55,7 +55,8 @@ export default function WelcomeBanner() {
         <div className="flex-1 space-y-6">
           <div>
             <h1 className="text-3xl font-bold md:text-4xl">
-              Welcome back, Alex Johnson 👋
+              Welcome <br /> back, <br />
+              <span className="text-blue-400"> Alex Johnson</span> 👋
             </h1>
             <p className="mt-2 text-gray-400">
               You're 68% through your program. 3 more weeks to graduation!

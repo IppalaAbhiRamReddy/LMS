@@ -20,7 +20,7 @@ function App() {
       <div className="mx-auto max-w-7xl flex flex-col xl:flex-row gap-8">
 
         {/* LEFT COLUMN: Main Content */}
-        <div className="flex-1 space-y-8 min-w-0">
+        <div className="flex-1 space-y-8 min-w-0 mt-10">
           <WelcomeBanner />
 
           <section className="space-y-6">
@@ -53,7 +53,7 @@ function App() {
         </div>
 
         {/* RIGHT COLUMN: Right Panel */}
-        <div className="w-full xl:w-[340px] space-y-8 shrink-0">
+        <div className="w-full xl:w-[340px] space-y-8 shrink-0 mt-10">
           <CourseProgressItem />
           <ResumeCard />
           <DeadlineList />
