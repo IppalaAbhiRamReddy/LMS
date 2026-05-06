@@ -27,10 +27,10 @@ function App() {
             <StatsGrid />
           </section>
 
-          <hr className="border-t border-gray-200 dark:border-white/10" />
+          <hr className="border-t border-gray-200 dark:border-white/30" />
 
           <section className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-[95%] h-[95%]">
               <SkillProgressCard />
               <CareerReadinessCard />
               <AIInsightsCard />
