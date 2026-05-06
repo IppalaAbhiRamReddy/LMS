@@ -1,0 +1,12 @@
+import React from 'react';
+
+const LiveClasses: React.FC = () => {
+  return (
+    <div className="mt-10">
+      <h1 className="text-3xl font-bold text-white mb-6">Live Classes</h1>
+      <p className="text-gray-400">Content for the live classes page will go here.</p>
+    </div>
+  );
+};
+
+export default LiveClasses;

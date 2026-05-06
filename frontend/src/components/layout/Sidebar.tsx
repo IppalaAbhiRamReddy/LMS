@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   BookOpen, 
@@ -12,14 +13,14 @@ import {
 
 const Sidebar: React.FC = () => {
   const navItems = [
-    { name: 'Dashboard', icon: LayoutDashboard, active: true },
-    { name: 'Courses', icon: BookOpen, active: false },
-    { name: 'Live Classes', icon: Video, active: false, badge: true },
-    { name: 'Assignments', icon: FileEdit, active: false },
-    { name: 'Progress', icon: PieChart, active: false },
-    { name: 'Certificates', icon: Award, active: false },
-    { name: 'Resume', icon: FileText, active: false },
-    { name: 'Placement', icon: Briefcase, active: false, highlight: true },
+    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+    { name: 'Courses', path: '/courses', icon: BookOpen },
+    { name: 'Live Classes', path: '/live-classes', icon: Video, badge: true },
+    { name: 'Assignments', path: '/assignments', icon: FileEdit },
+    { name: 'Progress', path: '/progress', icon: PieChart },
+    { name: 'Certificates', path: '/certificates', icon: Award },
+    { name: 'Resume', path: '/resume', icon: FileText },
+    { name: 'Placement', path: '/placement', icon: Briefcase, highlight: true },
   ];
 
   return (
@@ -34,11 +35,11 @@ const Sidebar: React.FC = () => {
       {/* Navigation Links */}
       <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
         {navItems.map((item) => (
-          <a
+          <NavLink
             key={item.name}
-            href="#"
-            className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-              item.active 
+            to={item.path}
+            className={({ isActive }) => `flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+              isActive 
                 ? 'bg-blue-600/10 text-blue-500' 
                 : item.highlight 
                   ? 'text-pink-500 hover:bg-gray-800/50'
@@ -50,18 +51,25 @@ const Sidebar: React.FC = () => {
             {item.badge && (
               <span className="ml-auto w-2 h-2 rounded-full bg-red-500"></span>
             )}
-          </a>
+          </NavLink>
         ))}
       </nav>
 
       {/* Bottom User Profile */}
       <div className="p-4 border-t border-gray-800">
-        <div className="flex items-center bg-blue-600/20 text-blue-500 p-3 rounded-xl cursor-pointer hover:bg-blue-600/30 transition-colors">
+        <NavLink 
+          to="/profile"
+          className={({ isActive }) => `flex items-center p-3 rounded-xl cursor-pointer transition-colors ${
+            isActive 
+              ? 'bg-blue-600/30 text-blue-500' 
+              : 'bg-blue-600/20 text-blue-500 hover:bg-blue-600/30'
+          }`}
+        >
           <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
             AJ
           </div>
           <span className="ml-3 font-medium text-sm">Alex Johnson</span>
-        </div>
+        </NavLink>
       </div>
     </aside>
   );

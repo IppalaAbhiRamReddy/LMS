@@ -67,3 +67,13 @@
     @apply bg-background text-foreground font-sans;
   }
 }
+
+::highlight(search-results) {
+  background-color: theme('colors.blue.500');
+  color: white;
+}
+
+::highlight(search-active) {
+  background-color: theme('colors.orange.500');
+  color: white;
+}
