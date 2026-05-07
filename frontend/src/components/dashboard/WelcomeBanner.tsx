@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
 import { motion } from "framer-motion";
+import useStore from "../../store/useStore";
 
 /**
  * WelcomeBanner Component
@@ -8,12 +9,19 @@ import { motion } from "framer-motion";
  * overall progress, and functional daily streak tracking.
  */
 export default function WelcomeBanner() {
+  const { user } = useStore();
   const [streak, setStreak] = useState(1);
 
   useEffect(() => {
+    if (user?.streak) {
+      setStreak(user.streak);
+    } else {
+      const savedStreak = Number(localStorage.getItem("streakCount")) || 1;
+      setStreak(savedStreak);
+    }
+
     const today = new Date();
     const todayString = today.toDateString();
-
     const lastVisit = localStorage.getItem("lastVisitDate");
     const savedStreak = Number(localStorage.getItem("streakCount")) || 1;
 
@@ -56,7 +64,7 @@ export default function WelcomeBanner() {
           <div>
             <h1 className="text-3xl font-bold md:text-4xl">
               Welcome <br /> back, <br />
-              <span className="text-blue-400"> Alex Johnson</span> 👋
+              <span className="text-blue-400"> {user?.name || 'User'}</span> 👋
             </h1>
             <p className="mt-2 text-gray-400">
               You're 68% through your program. 3 more weeks to graduation!
@@ -76,7 +84,6 @@ export default function WelcomeBanner() {
             </div>
           </div>
         </div>
-
         <div className="flex flex-col items-center gap-6">
           <div className="relative">
             <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md"></div>
@@ -85,23 +92,27 @@ export default function WelcomeBanner() {
                 src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop"
                 alt="User Profile"
               />
-              <AvatarFallback>AJ</AvatarFallback>
+              <AvatarFallback>
+                {user?.name
+                  ? user.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")
+                  : "U"}
+              </AvatarFallback>
             </Avatar>
           </div>
+          {/* On Track Badge */}
+          <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2 text-sm font-medium text-emerald-400 shadow-sm backdrop-blur-sm">
+            <span className="h-2 w-2 rounded-full bg-emerald-400"></span>
+            <span>On track</span>
+            <span className="text-emerald-300">✔</span>
+          </div>
 
-          <div className="flex flex-col items-center gap-3">
-            {/* On Track Badge */}
-            <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2 text-sm font-medium text-emerald-400 shadow-sm backdrop-blur-sm">
-              <span className="h-2 w-2 rounded-full bg-emerald-400"></span>
-              <span>On track</span>
-              <span className="text-emerald-300">✔</span>
-            </div>
-
-            {/* Streak Badge */}
-            <div className="flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-5 py-2 text-sm font-medium text-orange-300 shadow-sm backdrop-blur-sm">
-              <span>🔥</span>
-              <span>{streak}-day streak</span>
-            </div>
+          {/* Streak Badge */}
+          <div className="flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/5 px-4 py-1.5 text-sm font-medium text-orange-300 shadow-sm backdrop-blur-sm">
+            <span>🔥</span>
+            <span>{streak}-day streak</span>
           </div>
         </div>
       </div>

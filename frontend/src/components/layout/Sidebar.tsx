@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import useStore from '../../store/useStore';
 import { 
   LayoutDashboard, 
   BookOpen, 
@@ -12,6 +13,7 @@ import {
 } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
+  const { user } = useStore();
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Courses', path: '/courses', icon: BookOpen },
@@ -65,10 +67,10 @@ const Sidebar: React.FC = () => {
               : 'bg-blue-600/20 text-blue-500 hover:bg-blue-600/30'
           }`}
         >
-          <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-            AJ
+          <div className="w-8 h-8 rounded-full flex items-center justify-center bg-blue-600 text-white font-bold text-xs">
+            {user ? user.name.split(' ').map(n => n[0]).join('') : '...'}
           </div>
-          <span className="ml-3 font-medium text-sm">Alex Johnson</span>
+          <span className="ml-3 font-medium text-sm">{user?.name || 'User'}</span>
         </NavLink>
       </div>
     </aside>

@@ -1,31 +1,34 @@
+import useStore from "../../store/useStore";
 import StatCard from "./StatCard";
 
 export default function StatsGrid() {
+  const { user } = useStore();
+
   const stats = [
     {
-      title: "Courses Enrolled",
-      value: "7",
-      subtitle: "3 In Progress →",
+      title: "Courses Completed",
+      value: user?.progress?.completedCourses?.toString() || "0",
+      subtitle: "Lifetime progress →",
       icon: "📚",
       badgeContent: "+2 this month",
     },
     {
       title: "Total Hours Learned",
-      value: "128hrs",
-      subtitle: "12 hours this week",
+      value: `${user?.progress?.totalHours || 0}hrs`,
+      subtitle: "Consistent learning",
       icon: "⏱️",
     },
     {
       title: "Assignments Done",
-      value: "24/30",
-      subtitle: "6 Pending 🔴",
+      value: user?.progress?.assignmentsDone?.toString() || "0",
+      subtitle: "Keep it up! 🔴",
       icon: "📝",
-      badgeContent: "Due Apr 10",
+      badgeContent: "Due soon",
     },
     {
       title: "Certificates Earned",
-      value: "4",
-      subtitle: "2 in progress →",
+      value: user?.progress?.certificatesEarned?.toString() || "0",
+      subtitle: "Achievements unlocked →",
       icon: "🏆",
     }
   ];

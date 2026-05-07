@@ -1,11 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Search, Bell, Mail, Settings } from 'lucide-react';
+import useStore from '../../store/useStore';
 
 const Navbar: React.FC = () => {
+  const { user } = useStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const location = useLocation();
+
+  // Helper to get initials
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase();
+  };
   const matchRangesRef = useRef<Range[]>([]);
   const currentMatchIndexRef = useRef<number>(-1);
 
@@ -154,9 +165,8 @@ const Navbar: React.FC = () => {
         {/* Divider */}
         <div className="h-6 w-px bg-gray-800 mx-2"></div>
 
-        {/* Small Avatar */}
         <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm cursor-pointer border-2 border-transparent hover:border-blue-400 transition-all">
-          AJ
+          {user ? getInitials(user.name) : '...'}
         </div>
 
         {/* Enroll Button */}
