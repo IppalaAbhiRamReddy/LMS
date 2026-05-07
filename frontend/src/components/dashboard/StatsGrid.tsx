@@ -6,42 +6,30 @@ export default function StatsGrid() {
 
   const stats = [
     {
-      title: "Courses Completed",
-      value: user?.progress?.completedCourses?.toString() || "0",
-      subtitle: "Lifetime progress →",
+      title: "Courses Enrolled",
+      value: "7",
+      subtitle: "3 In Progress →",
       icon: "📚",
       badgeContent: "+2 this month",
     },
     {
       title: "Total Hours Learned",
-      value: `${user?.progress?.totalHours || 0}hrs`,
-      subtitle: "Consistent learning",
+      value: "128hrs",
+      subtitle: "12 hours this week",
       icon: "⏱️",
     },
     {
       title: "Assignments Done",
-      value: user?.progress?.assignmentsDone?.toString() || "0",
-      subtitle: "Keep it up! 🔴",
+      value: "24/30",
+      subtitle: "6 Pending 🔴",
       icon: "📝",
-      badgeContent: "Due soon",
+      badgeContent: "Due Apr 10",
     },
     {
       title: "Certificates Earned",
-      value: user?.progress?.certificatesEarned?.toString() || "0",
-      subtitle: "Achievements unlocked →",
+      value: "4",
+      subtitle: "2 in progress →",
       icon: "🏆",
     }
   ];
-
-  return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {stats.map((stat, index) => (
-        <StatCard 
-          key={index} 
-          {...stat} 
-          delay={index * 0.1}
-        />
-      ))}
-    </div>
-  );
 }
