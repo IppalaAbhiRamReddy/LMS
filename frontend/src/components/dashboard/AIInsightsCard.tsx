@@ -1,6 +1,14 @@
 import { motion } from "framer-motion";
+import useStore from "../../store/useStore";
 
 export default function AIInsightsCard() {
+    const { user } = useStore();
+    const insights = user?.aiInsights?.length ? user.aiInsights : [
+        "Improve DSA",
+        "Add 1 project to portfolio",
+        "Revise System Design"
+    ];
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -17,11 +25,7 @@ export default function AIInsightsCard() {
             </div>
 
             <ul className="flex-1 space-y-3.5">
-                {[
-                    "Improve DSA",
-                    "Add 1 project to portfolio",
-                    "Revise System Design"
-                ].map((item) => (
+                {insights.map((item) => (
                     <li key={item} className="flex border-b border-[#232633] pb-3.5">
                         <span className="flex items-center gap-2 text-[14px] text-gray-200 font-medium">
                             <span className="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>

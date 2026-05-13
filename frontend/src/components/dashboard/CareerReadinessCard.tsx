@@ -1,6 +1,20 @@
 import { motion } from "framer-motion";
+import useStore from "../../store/useStore";
 
 export default function CareerReadinessCard() {
+    const { user } = useStore();
+    const stats = user?.resumeStats || {
+        score: 80,
+        skillsMatch: 30,
+        interviewReady: 60
+    };
+
+    const readinessItems = [
+        { label: "Resume Score", value: `${stats.score}%` },
+        { label: "Interview Ready", value: `${stats.interviewReady}%` },
+        { label: "Skills Match", value: `${stats.skillsMatch}%` }
+    ];
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -17,17 +31,13 @@ export default function CareerReadinessCard() {
             </div>
 
             <ul className="flex-1 space-y-3.5">
-                {[
-                    ["Resume Score", "80%"],
-                    ["Interview Ready", "60%"],
-                    ["Skills Match", "30%"]
-                ].map(([label, value]) => (
-                    <li key={label} className="flex justify-between border-b border-[#232633] pb-3.5">
+                {readinessItems.map((item) => (
+                    <li key={item.label} className="flex justify-between border-b border-[#232633] pb-3.5">
                         <span className="flex items-center gap-2 text-[14px] text-gray-200">
                             <span className="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
-                            {label}
+                            {item.label}
                         </span>
-                        <span className="text-[14px] font-bold text-gray-200">{value}</span>
+                        <span className="text-[14px] font-bold text-gray-200">{item.value}</span>
                     </li>
                 ))}
             </ul>

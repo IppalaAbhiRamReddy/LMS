@@ -3,33 +3,47 @@ import StatCard from "./StatCard";
 
 export default function StatsGrid() {
   const { user } = useStore();
-
   const stats = [
     {
       title: "Courses Enrolled",
-      value: "7",
-      subtitle: "3 In Progress →",
+      value: user?.progress?.completedCourses?.toString() || "0",
+      subtitle: "Active progress →",
       icon: "📚",
       badgeContent: "+2 this month",
     },
     {
       title: "Total Hours Learned",
-      value: "128hrs",
-      subtitle: "12 hours this week",
+      value: `${user?.progress?.totalHours || 0}hrs`,
+      subtitle: "Learning time",
       icon: "⏱️",
     },
     {
       title: "Assignments Done",
-      value: "24/30",
-      subtitle: "6 Pending 🔴",
+      value: `${user?.progress?.assignmentsDone || 0}/50`,
+      subtitle: "Tasks completed",
       icon: "📝",
-      badgeContent: "Due Apr 10",
+      badgeContent: "Due soon",
     },
     {
       title: "Certificates Earned",
-      value: "4",
-      subtitle: "2 in progress →",
+      value: user?.progress?.certificatesEarned?.toString() || "0",
+      subtitle: "Achievements",
       icon: "🏆",
     }
   ];
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {stats.map((stat, index) => (
+        <StatCard
+          key={index}
+          title={stat.title}
+          value={stat.value}
+          subtitle={stat.subtitle}
+          icon={stat.icon}
+          badgeContent={stat.badgeContent}
+        />
+      ))}
+    </div>
+  );
 }

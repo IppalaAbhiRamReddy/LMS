@@ -1,6 +1,14 @@
 import { motion } from "framer-motion";
+import useStore from "../../store/useStore";
 
 export default function SkillProgressCard() {
+    const { user } = useStore();
+    const skills = user?.skills?.length ? user.skills : [
+        { name: "React", value: 80, color: "bg-[#3366ff]" },
+        { name: "Python", value: 60, color: "bg-[#4ade80]" },
+        { name: "AWS", value: 30, color: "bg-[#eab308]" }
+    ];
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -17,11 +25,7 @@ export default function SkillProgressCard() {
             </div>
 
             <div className="flex-1 space-y-4">
-                {[
-                    { name: "React", value: 80, color: "bg-[#3366ff]" },
-                    { name: "Python", value: 60, color: "bg-[#4ade80]" },
-                    { name: "AWS", value: 30, color: "bg-[#eab308]" }
-                ].map((item) => (
+                {skills.map((item) => (
                     <div key={item.name} className="flex items-center gap-4">
                         <span className="text-[14px] text-gray-200 w-14">{item.name}</span>
                         <div className="flex-1 h-1.5 bg-[#232633] rounded-full overflow-hidden">

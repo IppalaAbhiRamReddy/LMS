@@ -23,7 +23,7 @@ export default function WelcomeBanner() {
     const today = new Date();
     const todayString = today.toDateString();
     const lastVisit = localStorage.getItem("lastVisitDate");
-    const savedStreak = Number(localStorage.getItem("streakCount")) || 1;
+    const savedStreakVal = Number(localStorage.getItem("streakCount")) || 1;
 
     if (!lastVisit) {
       localStorage.setItem("lastVisitDate", todayString);
@@ -37,9 +37,9 @@ export default function WelcomeBanner() {
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
     if (diffDays === 0) {
-      setStreak(savedStreak);
+      setStreak(savedStreakVal);
     } else if (diffDays === 1) {
-      const updatedStreak = savedStreak + 1;
+      const updatedStreak = savedStreakVal + 1;
       localStorage.setItem("streakCount", updatedStreak.toString());
       localStorage.setItem("lastVisitDate", todayString);
       setStreak(updatedStreak);
@@ -48,7 +48,9 @@ export default function WelcomeBanner() {
       localStorage.setItem("lastVisitDate", todayString);
       setStreak(1);
     }
-  }, []);
+  }, [user]);
+
+  const progress = user?.progress?.overallProgress || 0;
 
   return (
     <motion.section
@@ -67,19 +69,19 @@ export default function WelcomeBanner() {
               <span className="text-blue-400"> {user?.name || 'User'}</span> 👋
             </h1>
             <p className="mt-2 text-gray-400">
-              You're 68% through your program. 3 more weeks to graduation!
+              You're {progress}% through your program. Keep up the great work!
             </p>
           </div>
 
           <div className="max-w-md space-y-2">
             <div className="flex justify-between text-sm font-medium">
               <span>Overall Progress</span>
-              <span className="text-blue-400">68%</span>
+              <span className="text-blue-400">{progress}%</span>
             </div>
             <div className="h-2 bg-gray-700/50 rounded-full overflow-hidden">
               <div
-                className="h-full bg-blue-500 rounded-full"
-                style={{ width: "68%" }}
+                className="h-full bg-blue-500 rounded-full transition-all duration-1000"
+                style={{ width: `${progress}%` }}
               ></div>
             </div>
           </div>
@@ -89,16 +91,11 @@ export default function WelcomeBanner() {
             <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md"></div>
             <Avatar className="h-24 w-24 border-2 border-blue-500/50 shadow-2xl transition-transform hover:scale-105">
               <AvatarImage
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop"
+                src={user?.avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop"}
                 alt="User Profile"
               />
               <AvatarFallback>
-                {user?.name
-                  ? user.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")
-                  : "U"}
+                {user?.name ? user.name.split(" ").map((n) => n[0]).join("") : "U"}
               </AvatarFallback>
             </Avatar>
           </div>

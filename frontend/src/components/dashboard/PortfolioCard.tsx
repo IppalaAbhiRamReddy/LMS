@@ -1,6 +1,21 @@
 import { motion } from "framer-motion";
+import useStore from "../../store/useStore";
 
 export default function PortfolioCard() {
+    const { user } = useStore();
+
+    const status = user?.portfolioStatus || {
+        projects: 80,
+        completed: 60,
+        pending: 30
+    };
+
+    const portfolioItems = [
+        { label: "Projects", value: `${status.projects}%` },
+        { label: "Completed", value: `${status.completed}%` },
+        { label: "Pending", value: `${status.pending}%` }
+    ];
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -17,17 +32,13 @@ export default function PortfolioCard() {
             </div>
 
             <ul className="flex-1 space-y-3.5">
-                {[
-                    ["Projects", "80%"],
-                    ["Completed", "60%"],
-                    ["Pending", "30%"]
-                ].map(([label, value]) => (
-                    <li key={label} className="flex justify-between border-b border-[#232633] pb-3.5">
+                {portfolioItems.map((item) => (
+                    <li key={item.label} className="flex justify-between border-b border-[#232633] pb-3.5">
                         <span className="flex items-center gap-2 text-[14px] text-gray-200">
                             <span className="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
-                            {label}
+                            {item.label}
                         </span>
-                        <span className="text-[14px] font-bold text-gray-200">{value}</span>
+                        <span className="text-[14px] font-bold text-gray-200">{item.value}</span>
                     </li>
                 ))}
             </ul>

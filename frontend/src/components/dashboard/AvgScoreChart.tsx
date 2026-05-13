@@ -1,27 +1,29 @@
 import React from 'react';
 import { BarChart3, TrendingUp } from 'lucide-react';
+import useStore from '../../store/useStore';
 
 const AvgScoreChart: React.FC = () => {
-  const data = [
-    { month: 'Jan', value: 45 },
-    { month: 'Feb', value: 65 },
-    { month: 'Mar', value: 85 },
+  const { user } = useStore();
+  const chartData = user?.avgScores?.length ? user.avgScores : [
+    { month: 'Jan', value: 45, highlight: false },
+    { month: 'Feb', value: 65, highlight: false },
+    { month: 'Mar', value: 85, highlight: false },
     { month: 'Apr', value: 95, highlight: true },
   ];
 
   return (
-    <div className="bg-[#12141a] rounded-2xl p-6 border border-gray-800 h-full flex flex-col">
+    <div className="bg-[#12141a] rounded-2xl p-6 border border-gray-800 h-full flex flex-col font-sans">
       <div className="flex items-center gap-2 mb-8">
         <BarChart3 className="w-5 h-5 text-green-500" />
         <h3 className="text-white font-semibold text-lg">Avg Scores</h3>
       </div>
 
       <div className="flex-1 flex items-end justify-between px-2 pb-2">
-        {data.map((item) => (
+        {chartData.map((item) => (
           <div key={item.month} className="flex flex-col items-center gap-3 w-10">
             {/* Bar Track & Fill */}
             <div className="w-full h-32 bg-gray-800 rounded-md relative overflow-hidden">
-              <div 
+              <div
                 className="absolute bottom-0 w-full bg-blue-500 rounded-md transition-all duration-500"
                 style={{ height: `${item.value}%` }}
               ></div>

@@ -1,7 +1,9 @@
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/Card";
+import useStore from "../../store/useStore";
 
 export default function DeadlineList() {
-  const deadlines = [
+  const { user } = useStore();
+  const deadlines = user?.deadlines?.length ? user.deadlines : [
     { title: "React Final Project", date: "Apr 10 · 2 days left", color: "bg-[#ff6b6b]", tag: "HOT" },
     { title: "ML Model Submission", date: "Apr 12 · 4 days left", color: "bg-[#ffa94d]" },
     { title: "AWS Quiz #3", date: "Apr 15 · 7 days left", color: "bg-[#ffd43b]" },
@@ -9,13 +11,13 @@ export default function DeadlineList() {
   ];
 
   return (
-    <Card className="bg-[#11131e] border-[#1e2235] rounded-xl overflow-hidden">
+    <Card className="bg-[#11131e] border-[#1e2235] rounded-xl overflow-hidden text-sans">
       <CardHeader className="pb-4 pt-5 px-6 flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-bold flex items-center gap-2 text-white">
           <span>⏰</span> Deadlines
         </CardTitle>
         <span className="text-xs font-bold text-[#ff6b6b] bg-[#ff6b6b]/15 px-3 py-1 rounded-full">
-          5 Due
+          {deadlines.length} Due
         </span>
       </CardHeader>
       <CardContent className="px-6 pb-6 space-y-6">

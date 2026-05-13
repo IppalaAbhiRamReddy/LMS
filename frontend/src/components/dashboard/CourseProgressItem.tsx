@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
+import useStore from "../../store/useStore";
 
 type ActivityData = {
   [key: string]: number; // YYYY-MM-DD => activity count
 };
 
 export default function CourseProgressItem() {
+  const { user } = useStore();
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const today = new Date();
@@ -17,19 +19,10 @@ export default function CourseProgressItem() {
   const [activityData, setActivityData] = useState<ActivityData>({});
 
   useEffect(() => {
-    const storedData: ActivityData = JSON.parse(
-      localStorage.getItem("dailyActivityData") || "{}"
-    );
-
-    const todayKey = today.toISOString().split("T")[0];
-
-    // Example functional increment:
-    // Every visit increases today's count by 1
-    storedData[todayKey] = (storedData[todayKey] || 0) + 1;
-
-    localStorage.setItem("dailyActivityData", JSON.stringify(storedData));
-    setActivityData(storedData);
-  }, []);
+    if (user?.activityData) {
+      setActivityData(user.activityData);
+    }
+  }, [user]);
 
   const generateCalendar = () => {
     const year = currentDate.getFullYear();
